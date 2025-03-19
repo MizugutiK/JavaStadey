@@ -1,25 +1,24 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 public class no3 {
     public static void main(String[] args) {
-        try {
-            // FileWriterクラスのオブジェクトを生成する
-            FileWriter file = new FileWriter("/Users/MZGT/Documents/JavaStadey/Javatest/testfolda/java.txt");
-            // PrintWriterクラスのオブジェクトを生成する
-            PrintWriter pw = new PrintWriter(new BufferedWriter(file));
+        Scanner inputScanner = new Scanner(System.in);
 
-            // ファイルに書き込む
-            pw.println("Hellow World");
-            
-            System.out.println("java.txtに書き込まれました");
+        System.out.println("Javatest以降のファイルパスを入れてください(フォルダ内を探す場合は\\\\で接続)");
+        String fileName = inputScanner.next();
+        String filePath = "C:\\Users\\MZGT\\Documents\\JavaStadey\\Javatest\\" + fileName;
 
-            // ファイルを閉じる
-            pw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        try (Scanner fileScanner  = new Scanner(new File(filePath))) {
+
+            while (fileScanner.hasNextLine()) { // 1行ずつ読み取る
+                System.out.println(fileScanner.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("エラー: ファイルが見つかりません - " + fileName);
         }
+        inputScanner.close(); // Scanner を閉じる
+
     }
 }
