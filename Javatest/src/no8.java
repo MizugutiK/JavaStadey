@@ -1,26 +1,44 @@
 
-// import java.util.ArrayList;
-
-// import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class no8 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("数字あて");
+        System.out.println("0~99の数字を入れてください");
 
-        System.out.println("数字を入れてください");
-        String numberStr = scanner.next();
         // 文字列を整数に変換
-        int number = Integer.parseInt(numberStr);
-
+        int number = 0;
         Random rand = new Random();
-        int randomNumber = rand.nextInt(number);
+        int randomNumber = rand.nextInt(100);
 
-        for (int i = 0; i < number; i++) {
-            System.out.println("生成された乱数です:" + randomNumber);
+        while (number != randomNumber) {
+            String numberStr = scanner.next();
 
+
+            try {
+                number = Integer.parseInt(numberStr); // 文字列を整数に変換
+            } catch (NumberFormatException e) {
+                System.out.println("⚠ 数字を入力してください！");
+                continue;
+            }
+
+            if (number < 0 || number > 99) {
+                System.out.println("⚠ 0〜99の範囲で入力してください！");
+                continue;
+            }
+
+            if (number < randomNumber) {
+                System.out.println("小さすぎます");
+
+            } else if (number > randomNumber) {
+                System.out.println("大きすぎます");
+            } 
+            System.out.println("もう一度数字を入れてください");
         }
+
+        System.out.println("あたりです:" + randomNumber);
 
         // 一時的に格納するリスト
         scanner.close(); // Scanner を閉じる
